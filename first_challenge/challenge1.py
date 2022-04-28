@@ -31,10 +31,10 @@ try:
     net_connect.enable()
     data = net_connect.send_command("show ip int brief | inc up", use_textfsm=True)
     print(json.dumps(data, indent=2))
-    with open(file_path + "\\results1.txt","w") as file:
+    with open(file_path + "\\results.txt","w") as file:
         json.dump(data, file, indent=6)
 
 except Exception as e:
     print(e)
-    with open(file_path + "\\challenge1errors.txt","w") as file:
+    with open(file_path + "\\errors.txt","w") as file:
         file.write(str(e))
