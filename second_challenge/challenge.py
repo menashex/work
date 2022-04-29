@@ -10,7 +10,7 @@ import datetime
 file_path = sys.path[0]
 os.environ['NET_TEXTFSM'] = file_path + "\\ntc_templates\\templates"
 actionfile = file_path + "\\config.txt"
-changesfile = file_path + "\\changes.txt"
+changesfile = file_path + "\\logs.txt"
 time=str(datetime.datetime.now())
 
 ipadd = input("please enter device ip address: ")
@@ -31,7 +31,7 @@ password = getpass(prompt="please enter remote access password: ")
 #}
 device={
         "device_type": "cisco_ios",
-        "host": "10.0.0.13",
+        "host": "10.0.0.12",
         "port": "22", 
         "username": "menash",
         "password": "menash",
@@ -46,15 +46,28 @@ try:
             (interface, status, ipaddr) = current_line.split(" ")
             dict.append({"intf":interface, "status":status.lower(), "ipaddr":ipaddr.replace("\n","")})
 
+    names=[]
     for i in data:
-        for k in dict:
+        names.append(i["intf"])
+
+    for k in dict:
+        ##### CHEKCS IF INTERFACE NAME IS IN NAMES LIST #####
+        if(k["intf"] not in names):
+                print("\n" + k["intf"] + " does not exist. skipping...")
+                with open(changesfile, "a") as file:
+                        file.write(time + ":     " + k["intf"] + " does not exist. skipping..." + "\n")
+                continue
+        
+        for i in data:
             if(k["intf"] == i["intf"]):
                 print("\n", k["intf"], ":", sep="")
 
                 ##### CHECKS UP AND DOWN STATUS #####
                 ##### IF UP CONFIGS SHUT AND VISE VERSA #####
                 ##### APPENDS LOGS INTO LOG FILE WITH TIME OF CONFIG #####
-
+                
+                if("admin" in i["status"]):
+                    i["status"] = "down"
                 if(k["status"] != i["status"]):
                     print(i["status"] + " ---> ", k["status"])
                     with open(changesfile, "a") as file:
@@ -67,6 +80,11 @@ try:
                             commands=["interface " + i["intf"], "no shut"]
                             output = net_connect.send_config_set(commands)
                             print(output)
+                else:
+                    print("no status changes were made.")
+                    with open(changesfile, "a") as file:
+                        file.write(time + ":     " + k["intf"] + ": " + "no status changes were made." + "\n")
+
                 
                 ##### COMPARES IP ADDRESSES #####
                 ##### ASSUMES /24 SUBNET MASK #####
@@ -84,10 +102,15 @@ try:
                         commands=["interface " + i["intf"], "ip address " + k["ipaddr"] + " 255.255.255.0"]
                         output = net_connect.send_config_set(commands)
                         print(output)
+                else:
+                    print("no ip address changes were made.")
+                    with open(changesfile, "a") as file:
+                        file.write(time + ":     " + k["intf"] + ": " + "no ip address changes were made." + "\n")
 
-
+    with open(file_path + "\\logs.txt","a") as file:
+        file.write("\n\n")            
 
 except Exception as e:
     print(e)
-    with open(file_path + "\\errors.txt","w") as file:
-        file.write(str(e))
+    with open(file_path + "\\errors.txt","a") as file:
+        file.write(time + ":     " + str(e) + "\n\n")
