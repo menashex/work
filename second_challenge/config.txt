@@ -1,3 +1,3 @@
-GigabitEthernet0/2 UP 192.168.0.1
-GigabitEthernet0/1 DOWN 192.168.1.1
-GigabitEthernet1/0 UP 10.0.0.1
+GigabitEthernet0/2 up 192.168.0.1
+GigabitEthernet0/1 down 192.168.1.1
+GigabitEthernet1/0 up 10.0.0.1

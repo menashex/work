@@ -1,1 +1,1 @@
-string indices must be integers
+'method' object is not subscriptable
