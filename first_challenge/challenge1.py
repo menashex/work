@@ -3,7 +3,7 @@ from netmiko import ConnectHandler
 from getpass import getpass
 import os
 import sys
-164325897Aa
+
 file_path = sys.path[0]
 os.environ['NET_TEXTFSM'] = file_path + "\\ntc_templates\\templates"
 
