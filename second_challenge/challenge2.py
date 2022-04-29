@@ -21,21 +21,22 @@ devicetype = input("please enter device type: ")
 username = input("please enter remote access username: ")
 password = getpass(prompt="please enter remote access password: ")
 
-#device={
-#        "device_type": devicetype,
-#        "host": ipadd,
-#        "port": portnum, 
-#        "username": username,
-#        "password": password,
-#        "actionfile": file_path + "\\config.txt",
-#}
 device={
-        "device_type": "cisco_ios",
-        "host": "10.0.0.12",
-        "port": "22", 
-        "username": "menash",
-        "password": "menash",
+        "device_type": devicetype,
+        "host": ipadd,
+        "port": portnum, 
+        "username": username,
+        "password": password,
 }
+
+#device={
+#        "device_type": "cisco_ios",
+#        "host": "10.0.0.12",
+#        "port": "22", 
+#        "username": "menash",
+#        "password": "menash",
+#}
+
 try:
     net_connect = ConnectHandler(**device)
     net_connect.enable()
@@ -114,3 +115,6 @@ except Exception as e:
     print(e)
     with open(file_path + "\\errors.txt","a") as file:
         file.write(time + ":     " + str(e) + "\n\n")
+
+while(1):
+    i=1
