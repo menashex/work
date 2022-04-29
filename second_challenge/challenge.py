@@ -75,7 +75,16 @@ try:
                 if(k["ipaddr"] != i["ipaddr"]):
                     print(i["ipaddr"] + " ---> ", k["ipaddr"])
                     with open(changesfile, "a") as file:
-                        file.write(time + ":     " + k["intf"] + ": " + i["ipaddr"] + " ---> " + k["ipaddr"] + "\n")                
+                        file.write(time + ":     " + k["intf"] + ": " + i["ipaddr"] + " ---> " + k["ipaddr"] + "\n") 
+                    if(k["ipaddr"] == ""):
+                        commands=["interface " + i["intf"], "no ip address"]
+                        output = net_connect.send_config_set(commands)
+                        print(output)
+                    else:
+                        commands=["interface " + i["intf"], "ip address " + k["ipaddr"] + " 255.255.255.0"]
+                        output = net_connect.send_config_set(commands)
+                        print(output)
+
 
 
 except Exception as e:

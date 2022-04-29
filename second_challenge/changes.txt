@@ -62,3 +62,11 @@
 2022-04-29 14:58:17.952846:     GigabitEthernet0/2: unassigned ---> 192.168.0.1
 2022-04-29 14:58:17.952846:     GigabitEthernet1/0: administratively down ---> up
 2022-04-29 14:58:17.952846:     GigabitEthernet1/0: unassigned ---> 10.0.0.1
+2022-04-29 15:03:58.538821:     GigabitEthernet0/1: administratively down ---> down
+2022-04-29 15:03:58.538821:     GigabitEthernet0/1: unassigned ---> 192.168.1.1
+2022-04-29 15:03:58.538821:     GigabitEthernet0/2: unassigned ---> 192.168.0.1
+2022-04-29 15:03:58.538821:     GigabitEthernet1/0: unassigned ---> 10.0.0.1
+2022-04-29 15:04:27.968502:     GigabitEthernet0/1: administratively down ---> down
+2022-04-29 15:04:27.968502:     GigabitEthernet0/1: unassigned ---> 192.168.1.1
+2022-04-29 15:04:27.968502:     GigabitEthernet0/2: unassigned ---> 192.168.0.1
+2022-04-29 15:04:27.968502:     GigabitEthernet1/0: unassigned ---> 10.0.0.1
